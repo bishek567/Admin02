@@ -1,0 +1,112 @@
+{
+  "entities": {
+    "Client": {
+      "title": "Client",
+      "description": "Represents a luxury beauty client registered at the atelier.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "bookingsCount": { "type": "integer" },
+        "totalSpent": { "type": "number" },
+        "status": { "type": "string", "enum": ["Active", "Suspended"] },
+        "joinedDate": { "type": "string", "format": "date" },
+        "notes": { "type": "string" }
+      },
+      "required": ["id", "name", "email", "phone", "bookingsCount", "totalSpent", "status", "joinedDate"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "A luxury ritual or service booking.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "clientName": { "type": "string" },
+        "clientEmail": { "type": "string", "format": "email" },
+        "serviceName": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "time": { "type": "string" },
+        "therapist": { "type": "string" },
+        "price": { "type": "number" },
+        "status": { "type": "string", "enum": ["Pending", "Confirmed", "Completed", "Cancelled"] },
+        "paymentStatus": { "type": "string", "enum": ["Paid", "Pending", "Refunded"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "clientName", "clientEmail", "serviceName", "date", "time", "therapist", "price", "status", "paymentStatus", "createdAt"]
+    },
+    "Payment": {
+      "title": "Payment",
+      "description": "A payment transaction ledger record.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "bookingId": { "type": "string" },
+        "clientName": { "type": "string" },
+        "serviceName": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "amount": { "type": "number" },
+        "method": { "type": "string", "enum": ["Card", "Apple Pay", "Cash", "Bank Transfer"] },
+        "status": { "type": "string", "enum": ["Paid", "Pending", "Refunded"] },
+        "invoiceNumber": { "type": "string" }
+      },
+      "required": ["id", "bookingId", "clientName", "serviceName", "date", "amount", "method", "status", "invoiceNumber"]
+    },
+    "Coupon": {
+      "title": "Coupon",
+      "description": "A promo code campaign for booking discounts.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "code": { "type": "string" },
+        "discountType": { "type": "string", "enum": ["percentage", "fixed"] },
+        "discountValue": { "type": "number" },
+        "maxUses": { "type": "integer" },
+        "usedCount": { "type": "integer" },
+        "expiryDate": { "type": "string", "format": "date" },
+        "status": { "type": "string", "enum": ["Active", "Expired"] }
+      },
+      "required": ["id", "code", "discountType", "discountValue", "maxUses", "usedCount", "expiryDate", "status"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Customer feedback and concierge responses.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "clientName": { "type": "string" },
+        "serviceName": { "type": "string" },
+        "rating": { "type": "integer" },
+        "comment": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "status": { "type": "string", "enum": ["Published", "Hidden"] },
+        "reply": { "type": "string" },
+        "replyDate": { "type": "string", "format": "date" }
+      },
+      "required": ["id", "clientName", "serviceName", "rating", "comment", "date", "status"]
+    }
+  },
+  "firestore": {
+    "clients": {
+      "schema": { "$ref": "#/entities/Client" },
+      "description": "Registered deluxe clients"
+    },
+    "bookings": {
+      "schema": { "$ref": "#/entities/Booking" },
+      "description": "Ritual and service reservations"
+    },
+    "payments": {
+      "schema": { "$ref": "#/entities/Payment" },
+      "description": "Transactions ledger"
+    },
+    "coupons": {
+      "schema": { "$ref": "#/entities/Coupon" },
+      "description": "Promotional campaign codes"
+    },
+    "reviews": {
+      "schema": { "$ref": "#/entities/Review" },
+      "description": "Deluxe client feedback journals"
+    }
+  }
+}

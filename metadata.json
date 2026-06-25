@@ -1,0 +1,6 @@
+{
+  "name": "Aura Luxe Admin Dashboard",
+  "description": "Luxury administrative dashboard for Aura Luxe Beauty Studio featuring booking management, user lists, analytics, payments, coupons, reviews, and secure login.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
